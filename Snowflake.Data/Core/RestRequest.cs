@@ -170,6 +170,11 @@ namespace Snowflake.Data.Core
                 message.Headers.Add(ClientAppVersion, SFEnvironment.DriverVersion);
             }
 
+            var snowflakeHost = Environment.GetEnvironmentVariable("SnowflakeHost");
+            if (snowflakeHost != null && snowflakeHost != "") {
+                message.Headers.Add("HOST", snowflakeHost);
+            }
+
             message.Headers.UserAgent.Add(new ProductInfoHeaderValue(SFEnvironment.DriverName, SFEnvironment.DriverVersion));
             message.Headers.UserAgent.Add(new ProductInfoHeaderValue(osInfo));
             message.Headers.UserAgent.Add(new ProductInfoHeaderValue(
